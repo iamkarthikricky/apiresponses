@@ -1,16 +1,12 @@
 const express = require("express");
-const cors = require("cors");
 
 const path = require("path");
 
 const { open } = require("sqlite");
 const sqlite3 = require("sqlite3");
 
-const corsOptions={
-  origin:"https://portfolio-api-f4rq.onrender.com"
-}
 const app = express();
-app.use(cors(corsOptions));
+
 
 const dbPath = path.join(__dirname, "technologies.db");
 
