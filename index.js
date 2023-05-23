@@ -45,27 +45,58 @@ app.get('/javascript',async(request,response)=>{
   response.send(responseQuery)
 })
 
-const listOfReplies = (h,query) => {
+const techniquesList = (h,query) => {
   let empty = [];
   query.forEach((element) => {
     empty.push(element);
   });
-  return [{...h,techniques: empty }];
+  return {...h,techniques: empty };
 };
 
+app.get('/nodejs/authentication',async(request,response)=>{
+  const projectIdQuery = `SELECT project_id FROM NodeJS WHERE category='Authentication';`
+  const projectIdResponse = await db.all(projectIdQuery)
+  const projectIdList=[]
+  projectIdResponse.forEach(query=>{
+    projectIdList.push(...Object.values(query))
+  })
 
-app.get('/nodejs',async(request,response)=>{
   let responseList=[]
-  for (let i = 1;i<=2;i++){
-    const projectsQuery=`SELECT * FROM NodeJS WHERE project_id = ${i}`
-    const techniquesQuery = `SELECT * FROM Techniques WHERE project_id = ${i}`
-    const projectsQueryResponse =await db.all(projectsQuery)
-    const techniquesQueryResponse = await db.all(techniquesQuery)
-    const responseItem = listOfReplies(...projectsQueryResponse,techniquesQueryResponse)
-    responseList.push(...responseItem)
-  } 
+  for(const id of projectIdList){
+    const projectsQuery = `SELECT * FROM NodeJS WHERE project_id=${id};` 
+    const tagsQuery=`SELECT * FROM Techniques WHERE project_id=${id};`
+    const projectsQueryResponse = await db.all(projectsQuery);
+    const tagsQueryResponse = await db.all(tagsQuery);
+    const responseItem = techniquesList(...projectsQueryResponse,tagsQueryResponse)
+    responseList.push(responseItem)
+  }
   response.send(responseList)
+
+
 })
+
+app.get('/nodejs/rest-api',async(request,response)=>{
+  const projectIdQuery = `SELECT project_id FROM NodeJS WHERE category='rest-api';`
+  const projectIdResponse = await db.all(projectIdQuery)
+  const projectIdList=[]
+  projectIdResponse.forEach(query=>{
+    projectIdList.push(...Object.values(query))
+  })
+
+  let responseList=[]
+  for(const id of projectIdList){
+    const projectsQuery = `SELECT * FROM NodeJS WHERE project_id=${id};` 
+    const tagsQuery=`SELECT * FROM Techniques WHERE project_id=${id};`
+    const projectsQueryResponse = await db.all(projectsQuery);
+    const tagsQueryResponse = await db.all(tagsQuery);
+    const responseItem = techniquesList(...projectsQueryResponse,tagsQueryResponse)
+    responseList.push(responseItem)
+  }
+  response.send(responseList)
+
+
+})
+
 
 const listOfTags=(projectDetails,tags)=>{
   let tagsList=[];
@@ -157,4 +188,8 @@ app.get('/reactjs/working-with-lists',async(request,response)=>{
     responseList.push(responseItem)
   }
   response.send(responseList)
+})
+
+app.get('/about-the-developer',async(response)=>{
+
 })
