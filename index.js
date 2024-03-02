@@ -53,6 +53,14 @@ const techniquesList = (h,query) => {
   return {...h,techniques: empty };
 };
 
+app.get('/nodejs',async(request,response)=>{
+  response.status(200)
+})
+
+app.get('/reactjs',async(request,response)=>{
+  response.status(200)
+})
+
 app.get('/nodejs/authentication',async(request,response)=>{
   const projectIdQuery = `SELECT project_id FROM NodeJS WHERE category='Authentication';`
   const projectIdResponse = await db.all(projectIdQuery)
