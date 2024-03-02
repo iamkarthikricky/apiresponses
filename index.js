@@ -22,7 +22,7 @@ const initializeDBAndServer = async () => {
       filename: dbPath,
       driver: sqlite3.Database,
     });
-    app.listen(3000, () => {
+    app.listen(3001, () => {
       console.log("Server Running at http://localhost:3000/");
     });
   } catch (e) {
@@ -53,12 +53,12 @@ const techniquesList = (h,query) => {
   return {...h,techniques: empty };
 };
 
-app.get('/nodejs',async(request,response)=>{
-  response.status(200)
+app.get('/nodejs',async (request,response)=>{
+  response.send('NodeJS Projects Fetched')
 })
 
 app.get('/reactjs',async(request,response)=>{
-  response.status(200)
+  response.send('ReactJS Projects Fetched')
 })
 
 app.get('/nodejs/authentication',async(request,response)=>{
