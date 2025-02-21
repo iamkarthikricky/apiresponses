@@ -10,6 +10,7 @@ const {
   postJavascript,
   postNodejs,
   postreactjs,
+  contact
 } = require("../controllers/portfolioControllers");
 
 const router = express.Router();
@@ -33,5 +34,7 @@ router.post("/postJavascript", postJavascript);
 router.post("/postNodejs", postNodejs);
 
 router.post("/postreactjs", postreactjs);
+
+router.post("/contact",contact)
 
 module.exports = router; // Export the router
